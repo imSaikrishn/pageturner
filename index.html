@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page-Turner</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+</head>
+<body>
+  <!-- LOGIN SCREEN (SHOWN FIRST) -->
+  <section id="login-screen">
+    <div class="login-container">
+      <header class="login-header">
+        <h1 class="logo">📘 Page-Turner</h1>
+        <p class="tagline">Turn any PDF into interactive learning</p>
+      </header>
+      
+      <div class="login-content">
+        <div class="login-card">
+          <h2>Welcome to Page-Turner</h2>
+          <p class="login-description">Login or register to start learning from your PDFs</p>
+          
+          <div class="input-group">
+            <input id="username" placeholder="Username" class="auth-input">
+            <input id="password" type="password" placeholder="Password" class="auth-input">
+          </div>
+          
+          <div class="button-group">
+            <button id="btn-login" class="btn btn-primary">Login</button>
+            <button id="btn-register" class="btn btn-secondary">Register</button>
+          </div>
+          
+          <div id="login-message" class="message"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APP (HIDDEN INITIALLY) -->
+  <div id="main-app" class="hidden">
+    <header>
+      <div class="header-content">
+        <h1>📘 Page-Turner</h1>
+        <div class="user-info">
+          <span>Welcome, <span id="current-user">User</span></span>
+          <div class="xp-container">
+            <div id="xp-bar"><div id="xp-fill"></div></div>
+            <p id="xp-text">XP: 0</p>
+          </div>
+        </div>
+        <button id="btn-logout" class="btn btn-secondary">Logout</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- UPLOAD SECTION -->
+      <section id="upload-section" class="card">
+        <h2>Upload Your PDF</h2>
+        <div class="upload-area">
+          <div class="upload-icon">📄</div>
+          <p>Upload any PDF to start learning</p>
+          <input type="file" id="pdf-file" accept="application/pdf" class="file-input">
+          <button id="btn-upload" class="btn btn-primary">Upload PDF</button>
+        </div>
+        <small>Each PDF page becomes a learning level. Minimum 5 pages recommended.</small>
+      </section>
+
+      <!-- STUDY SECTION (HIDDEN INITIALLY) -->
+      <section id="study-section" class="card hidden">
+        <h2>Study Mode</h2>
+        <div class="study-controls">
+          <button id="btn-prev-page" class="btn btn-secondary">Previous Page</button>
+          <span id="page-info">Page 1 of 1</span>
+          <button id="btn-next-page" class="btn btn-secondary">Next Page</button>
+        </div>
+        <div class="pdf-viewer">
+          <canvas id="pdf-canvas"></canvas>
+        </div>
+        <div class="study-actions">
+          <button id="btn-start-quiz" class="btn btn-primary">I'm Ready for Quiz</button>
+        </div>
+      </section>
+
+      <!-- LEVELS SECTION (HIDDEN INITIALLY) -->
+      <section id="levels-section" class="card hidden">
+        <h2>Learning Levels</h2>
+        <div class="levels-info">
+          <p>Complete each level by answering questions about the PDF content</p>
+        </div>
+        <div id="levels-list" class="levels-grid"></div>
+      </section>
+
+      <!-- QUIZ SECTION (HIDDEN INITIALLY) -->
+      <section id="quiz-section" class="card hidden">
+        <h2 id="quiz-title">Level Quiz</h2>
+        <div class="quiz-info">
+          <p>Answer questions based on what you studied</p>
+          <div class="progress-bar">
+            <div id="quiz-progress"></div>
+          </div>
+          <span id="progress-text">Question 1 of 3</span>
+        </div>
+        <div id="quiz-questions"></div>
+        <div class="quiz-controls">
+          <button id="btn-prev-question" class="btn btn-secondary hidden">Previous</button>
+          <button id="btn-next-question" class="btn btn-primary">Next Question</button>
+          <button id="btn-submit-quiz" class="btn btn-success hidden">Submit Quiz</button>
+        </div>
+      </section>
+
+      <!-- PROFILE SECTION -->
+      <section id="profile-section" class="card">
+        <h2>Your Progress</h2>
+        <div class="profile-stats">
+          <div class="stat">
+            <span class="stat-value" id="profile-xp">0</span>
+            <span class="stat-label">Total XP</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="profile-completed">0</span>
+            <span class="stat-label">Levels Completed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="profile-accuracy">0%</span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="messages"></div>
+  </div>
+
+  <!-- Debug button -->
+  <button onclick="clearAppData()" style="position: fixed; top: 10px; right: 10px; z-index: 10000; background: red; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px;">
+    Reset
+  </button>
+
+  <script src="app.js"></script>
+</body>
+</html>
